@@ -5,6 +5,7 @@
 package cl.ucn.disc.dsm.mrnews.mrnewsapi;
 
 import cl.ucn.disc.dsm.mrnews.Transformer;
+import cl.ucn.disc.dsm.mrnews.Transformer.NoticiaTransformerException;
 import cl.ucn.disc.dsm.mrnews.model.Noticia;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,14 +42,13 @@ public final class TestNewsAPI {
             article.publishedAt = "2019-10-15T11:04:37Z";
 
             // No puede haber un articulo sin titulo y description
-            Assertions.assertThrows(Transformer.NoticiaTransformerException.class, () -> {
-                transformer.transform(article);
-            });
+            Assertions.assertThrows(NoticiaTransformerException.class, () -> {
+                transformer.transform(article)});
 
             article.description = "This is the description";
 
             Assertions.assertDoesNotThrow(() -> {
-                Assertions.assertNotNull(transformer.transform(article), "Articulo was null");
+                Assertions.assertNotNull(transformer.transform(article), "Articulo was null")
             });
         }
 
@@ -71,9 +71,9 @@ public final class TestNewsAPI {
 
         // Nullity
         log.debug("Testing pseudo-nullity ..");
-        Assertions.assertThrows(Transformer.NoticiaTransformerException.class, () -> {
+        Assertions.assertThrows(NoticiaTransformerException.class, () -> {
             transformer.transform(null);
-            transformer.transform(new Article());
+            transformer.transform(new Article())
         });
 
         // The transform
@@ -100,7 +100,7 @@ public final class TestNewsAPI {
                 // Aca se DEBE caer (source no valida)
                 final Noticia noticia = transformer.transform(article);
 
-                Assertions.assertNotNull(noticia, "Noticia fue null!");
+                Assertions.assertNotNull(noticia, "Noticia fue null!")
 
             }, "Article sin source NO debe lanzar exception!");
         }
@@ -110,13 +110,13 @@ public final class TestNewsAPI {
         {
             // Date null
             article.publishedAt = null;
-            Assertions.assertThrows(Transformer.NoticiaTransformerException.class, () -> {
+            Assertions.assertThrows(NoticiaTransformerException.class, () -> {
                 transformer.transform(article);
             });
 
             // Date no valid
             article.publishedAt = "Fecha no valida";
-            Assertions.assertThrows(Transformer.NoticiaTransformerException.class, () -> {
+            Assertions.assertThrows(NoticiaTransformerException.class, () -> {
                 transformer.transform(article);
             });
         }
