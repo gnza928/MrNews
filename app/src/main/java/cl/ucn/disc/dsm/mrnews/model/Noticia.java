@@ -10,7 +10,7 @@ public final class Noticia {
 
     public static final ZoneId ZONE_ID = ZoneId.of("-3");
 
-    private final String id;
+    private final Long id;
     private final String titulo;
     private final String fuente;
     private final String autor;
@@ -20,7 +20,7 @@ public final class Noticia {
     private final String contenido;
     private final ZonedDateTime fecha;
 
-    public Noticia(String id, String titulo, String fuente, String autor, String url, String urlFoto, String resumen, String contenido, ZonedDateTime fecha) {
+    public Noticia(Long id, String titulo, String fuente, String autor, String url, String urlFoto, String resumen, String contenido, ZonedDateTime fecha) {
         this.titulo = titulo;
         this.fuente = fuente;
         this.autor = autor;
@@ -32,7 +32,7 @@ public final class Noticia {
         this.id = id;
     }
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 

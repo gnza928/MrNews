@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">mrnews</string>
+    <string name="app_name">@string/title</string>
+    <string name="title">mrnews</string>
+    <string name="subtitle">News from NewsAPI.org</string>
 </resources>

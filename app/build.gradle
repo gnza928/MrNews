@@ -98,6 +98,7 @@ dependencies {
 
     // JUnit
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0-M1'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.6.0-M1'
 
     // AppCompat: https://developer.android.com/jetpack/androidx/releases/appcompat
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha01'
@@ -144,4 +145,9 @@ dependencies {
 
     // Commons Lang3: https://commons.apache.org/proper/commons-lang/
     implementation 'org.apache.commons:commons-lang3:3.9'
+
+    // RecyclerView: https://developer.android.com/jetpack/androidx/releases/recyclerview
+    implementation "androidx.recyclerview:recyclerview:1.2.0-alpha01"
+    // SwipeRefreshLayout https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03"
 }
