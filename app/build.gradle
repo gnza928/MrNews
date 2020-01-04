@@ -128,4 +128,20 @@ dependencies {
     // Constraintlayout
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
 
+
+    //org.threeten
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+
+    implementation 'net.openhft:zero-allocation-hashing:0.10.1'
+
+
+    // Retrofit: https://square.github.io/retrofit/
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+
+    // Gson: https://github.com/google/gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    // Commons Lang3: https://commons.apache.org/proper/commons-lang/
+    implementation 'org.apache.commons:commons-lang3:3.9'
 }
