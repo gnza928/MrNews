@@ -43,13 +43,13 @@ public final class TestNewsAPI {
 
             // No puede haber un articulo sin titulo y description
             Assertions.assertThrows(NoticiaTransformerException.class, () -> {
-                transformer.transform(article)});
+                transformer.transform(article);});
 
             article.description = "This is the description";
 
             Assertions.assertDoesNotThrow(() -> {
                 Assertions.assertNotNull(transformer.transform(article), "Articulo was null")
-            });
+            ;});
         }
 
         // One article.
@@ -73,7 +73,7 @@ public final class TestNewsAPI {
         log.debug("Testing pseudo-nullity ..");
         Assertions.assertThrows(NoticiaTransformerException.class, () -> {
             transformer.transform(null);
-            transformer.transform(new Article())
+            transformer.transform(new Article());
         });
 
         // The transform
@@ -100,7 +100,7 @@ public final class TestNewsAPI {
                 // Aca se DEBE caer (source no valida)
                 final Noticia noticia = transformer.transform(article);
 
-                Assertions.assertNotNull(noticia, "Noticia fue null!")
+                Assertions.assertNotNull(noticia, "Noticia fue null!");
 
             }, "Article sin source NO debe lanzar exception!");
         }
