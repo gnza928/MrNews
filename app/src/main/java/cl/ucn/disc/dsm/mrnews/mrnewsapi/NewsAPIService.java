@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi;
 
 import cl.ucn.disc.dsm.mrnews.Transformer;
 import cl.ucn.disc.dsm.mrnews.model.Noticia;
+import cl.ucn.disc.dsm.mrnews.services.newsapi.Article;
 import java.io.IOException;
 import java.util.List;
 import org.slf4j.Logger;

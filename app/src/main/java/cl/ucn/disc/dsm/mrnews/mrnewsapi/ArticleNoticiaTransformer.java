@@ -7,6 +7,8 @@ package cl.ucn.disc.dsm.mrnews.mrnewsapi;
 import cl.ucn.disc.dsm.mrnews.Transformer;
 import cl.ucn.disc.dsm.mrnews.model.Noticia;
 import cl.ucn.disc.dsm.mrnews.model.NoticiaBuilder;
+import cl.ucn.disc.dsm.mrnews.services.newsapi.Article;
+import cl.ucn.disc.dsm.mrnews.services.newsapi.Source;
 import java.net.URI;
 import java.net.URISyntaxException;
 import net.openhft.hashing.LongHashFunction;
@@ -59,11 +61,11 @@ public final class ArticleNoticiaTransformer implements Transformer.NoticiaTrasf
         }
     }
 
-    @Override
-    public Noticia transform(Article article) {
+    public static Noticia transform(final Article article) {
+
         // Nullity
         if (article == null) {
-            throw new Transformer.NoticiaTransformerException("Article was null");
+            throw new NewsApiNoticiaService.NewsAPIException("Article was null");
         }
 
         // The host
@@ -72,11 +74,11 @@ public final class ArticleNoticiaTransformer implements Transformer.NoticiaTrasf
         // Si el articulo es null ..
         if (article.title == null) {
 
-            log.warn("Article without title: {}", Transformer.toString(article));
+            log.warn("Article without title: {}", toString(article));
 
             // .. y el contenido es null, lanzar exception!
             if (article.description == null) {
-                throw new Transformer.NoticiaTransformerException("Article without title and description");
+                throw new NewsApiNoticiaService.NewsAPIException("Article without title and description");
             }
 
             // FIXME: Cambiar el titulo por alguna informacion disponible
@@ -91,7 +93,7 @@ public final class ArticleNoticiaTransformer implements Transformer.NoticiaTrasf
                 article.source.name = host;
             } else {
                 article.source.name = "No Source*";
-                log.warn("Article without source: {}", Transformer.toString(article));
+                log.warn("Article without source: {}", toString(article));
             }
         }
 
@@ -102,28 +104,30 @@ public final class ArticleNoticiaTransformer implements Transformer.NoticiaTrasf
                 article.author = host;
             } else {
                 article.author = "No Author*";
-                log.warn("Article without author: {}", Transformer.toString(article));
+                log.warn("Article without author: {}", toString(article));
             }
         }
 
         // The date.
-        final ZonedDateTime publishedAt = ZonedDateTime.parse(article.publishedAt)
-                .withZoneSameInstant(Noticia.ZONE_ID);
+        final ZonedDateTime publishedAt = parseZonedDateTime(article.publishedAt)
+            .withZoneSameInstant(Noticia.ZONE_ID);
 
         // The unique id (computed from hash)
-        final Long theId = LongHashFunction.xx().hashChars(article.title + article.source.name);
+        final Long theId = LongHashFunction.xx()
+            .hashChars(article.title + article.source.name);
 
-        // FIXED: Use a builder pattern?
-        return new NoticiaBuilder()
-                .setId(article.source.id)
-                .setTitulo(article.title)
-                .setFuente(article.source.name)
-                .setAutor(article.author)
-                .setUrl(article.url)
-                .setUrlFoto(article.urlToImage)
-                .setResumen(article.description)
-                .setContenido(article.content)
-                .setFecha(publishedAt)
-                .createNoticia();
+        // The Noticia.
+        return new Noticia(
+            theId,
+            article.title,
+            article.source.name,
+            article.author,
+            article.url,
+            article.urlToImage,
+            article.description,
+            article.content,
+            publishedAt
+        );
+
     }
 }

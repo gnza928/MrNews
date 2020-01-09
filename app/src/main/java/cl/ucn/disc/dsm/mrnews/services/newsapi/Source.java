@@ -2,7 +2,11 @@
  * @author Gonzalo Nieto Berríos
  */
 
-package cl.ucn.disc.dsm.mrnews.mrnewsapi;
+/*
+ * @author Gonzalo Nieto Berríos
+ */
+
+package cl.ucn.disc.dsm.mrnews.services.newsapi;
 
 
 public class Source {

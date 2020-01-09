@@ -4,6 +4,7 @@
 
 package cl.ucn.disc.dsm.mrnews.mrnewsapi;
 
+import cl.ucn.disc.dsm.mrnews.services.newsapi.Article;
 import java.util.ArrayList;
 import java.util.List;
 

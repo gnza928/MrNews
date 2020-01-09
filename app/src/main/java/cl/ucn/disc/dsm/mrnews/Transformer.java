@@ -60,7 +60,7 @@ public final class Transformer<T> {
      * @return the List of Noticia.
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public List<Noticia> transform(final Collection<T> collection) {
+    public static List<Noticia> transform(final Collection<T> collection) {
 
         // No se permiten nulls
         Objects.requireNonNull(collection, "No se permite una Collection null");

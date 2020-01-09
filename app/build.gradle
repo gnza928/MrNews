@@ -150,4 +150,19 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.0-alpha01"
     // SwipeRefreshLayout https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03"
+
+    // Retrofit: https://square.github.io/retrofit/
+    def retrofit_version = "2.7.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // Gson: https://github.com/google/gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    // Commons Lang3: https://commons.apache.org/proper/commons-lang/
+    implementation 'org.apache.commons:commons-lang3:3.9'
+
+    // Hashing functions
+    // https://github.com/OpenHFT/Zero-Allocation-Hashing
+    implementation "net.openhft:zero-allocation-hashing:0.10.1"
 }
