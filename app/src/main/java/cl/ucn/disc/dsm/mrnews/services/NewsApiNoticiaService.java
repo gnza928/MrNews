@@ -186,7 +186,7 @@ public class NewsApiNoticiaService {
    *
    * @param fecha to parse.
    * @return the fecha.
-   * @throws cl.ucn.disc.dsm.thenews.services.newsapi.NewsApiNoticiaService.NewsAPIException en caso de no lograr
+   //* @throws cl.ucn.disc.dsm.thenews.services.newsapi.NewsApiNoticiaService.NewsAPIException en caso de no lograr
    *                                                                                         convertir la fecha.
    */
   private static ZonedDateTime parseZonedDateTime(final String fecha) {
@@ -253,7 +253,7 @@ public class NewsApiNoticiaService {
    * @param pageSize how many.
    * @return the {@link List} of {@link Noticia}.
    */
-  @Override
+  //@Override
   public List<Noticia> getNoticias(int pageSize) {
 
     // the Call
