@@ -46,7 +46,7 @@ public interface NewsApi {
    * @param pageSize the number of results to get.
    * @return the call of {@link NewsApiResult}.
    */
-  @Headers({"X-Api-Key: " + API_KEY})
+  @Headers({"X-Api-Key: " + API_KEY, "X-No-Cache: true"})
   @GET("top-headlines")
   Call<NewsApiResult> getTopHeadlines(@Query("category") final String category, @Query("pageSize") final int pageSize);
 

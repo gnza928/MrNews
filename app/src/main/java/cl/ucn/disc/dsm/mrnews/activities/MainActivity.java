@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-
         // The Adapter + RecyclerView
         {
             // The Adapter
@@ -77,72 +76,70 @@ public class MainActivity extends AppCompatActivity {
             binding.rvNoticias.setLayoutManager(new LinearLayoutManager(this));
 
             // The separator (line)
-            binding.rvNoticias.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            binding.rvNoticias
+                .addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         }
 
         // The NoticiaService
-        this.noticiaService = new NewsApiNoticiaService();
+        this.noticiaService = (NoticiaService) new NewsApiNoticiaService();
 
-    }
+        // The refresh
+        {
+            binding.swlRefresh.setOnRefreshListener(() -> {
+                log.debug("Refreshing ..");
 
+                // Execute in background ..
+                AsyncTask.execute(() -> {
 
-    // The refresh
-    {
-        binding.swlRefresh.setOnRefreshListener(() -> {
-            log.debug("Refreshing ..");
+                    // How much time do we need?
+                    final StopWatch stopWatch = StopWatch.createStarted();
 
-            // Execute in background ..
-            AsyncTask.execute(() -> {
+                    try {
 
-                // How much time do we need?
-                final StopWatch stopWatch = StopWatch.createStarted();
+                        // 1. Get the List from NewsApi (in background)
+                        final List<Noticia> noticias = this.noticiaService.getNoticias(50);
 
-                try {
+                        // (in UI)
+                        this.runOnUiThread(() -> {
 
-                    // 1. Get the List from NewsApi (in background)
-                    final List<Noticia> noticias = this.noticiaService.getNoticias(50);
+                            // 2. Set in the adapter (
+                            this.noticiaAdapter.setNoticias(noticias);
 
-                    // (in UI)
-                    this.runOnUiThread(() -> {
+                            // 3. Show a Toast!
+                            Toast.makeText(this, "Done: " + stopWatch, Toast.LENGTH_SHORT).show();
 
-                        // 2. Set in the adapter (
-                        this.noticiaAdapter.setNoticias(noticias);
+                        });
 
-                        // 3. Show a Toast!
-                        Toast.makeText(this, "Done: " + stopWatch, Toast.LENGTH_SHORT).show();
+                    } catch (Exception ex) {
 
-                    });
+                        log.error("Error", ex);
 
-                } catch (Exception ex) {
+                        // (in UI)
+                        this.runOnUiThread(() -> {
 
-                    log.error("Error", ex);
+                            // Build the message
+                            final StringBuffer sb = new StringBuffer("Error: ");
+                            sb.append(ex.getMessage());
+                            if (ex.getCause() != null) {
+                                sb.append(", ");
+                                sb.append(ex.getCause().getMessage());
+                            }
 
-                    // (in UI)
-                    this.runOnUiThread(() -> {
+                            // 3. Show the Toast!
+                            Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
 
-                        // Build the message
-                        final StringBuffer sb = new StringBuffer("Error: ");
-                        sb.append(ex.getMessage());
-                        if (ex.getCause() != null) {
-                            sb.append(", ");
-                            sb.append(ex.getCause().getMessage());
-                        }
+                        });
 
-                        // 3. Show the Toast!
-                        Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
+                    } finally {
 
-                    });
+                        // 4. Hide the spinning circle
+                        binding.swlRefresh.setRefreshing(false);
 
-                } finally {
+                    }
 
-                    // 4. Hide the spinning circle
-                    binding.swlRefresh.setRefreshing(false);
-
-                }
+                });
 
             });
-
-        });
+        }
     }
-
 }

@@ -2,6 +2,9 @@ package cl.ucn.disc.dsm.mrnews;
 
 import android.app.Application;
 import androidx.appcompat.app.AppCompatDelegate;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,8 +28,20 @@ public class MainApplication extends Application {
   public void onCreate() {
     super.onCreate();
 
+    log.debug("Initializing ..");
+
     // Day and Night support
-    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+    // Fresco configuration for large images
+    ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+        .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig())
+        .setResizeAndRotateEnabledForNetwork(true)
+        .setDownsampleEnabled(true)
+        .build();
+
+    // Fresco initialization
+    Fresco.initialize(this, config);
 
     log.debug("Initializing: Done.");
   }

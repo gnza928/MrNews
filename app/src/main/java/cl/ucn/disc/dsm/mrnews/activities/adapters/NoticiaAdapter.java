@@ -4,14 +4,24 @@
 
 package cl.ucn.disc.dsm.mrnews.activities.adapters;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import cl.ucn.disc.dsm.mrnews.MainApplication;
+import cl.ucn.disc.dsm.mrnews.R;
+import cl.ucn.disc.dsm.mrnews.databinding.PopupImageBinding;
 import cl.ucn.disc.dsm.mrnews.databinding.RowNoticiaBinding;
 import cl.ucn.disc.dsm.mrnews.model.Noticia;
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaViewHolder> {
 
@@ -20,11 +30,17 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaViewHolder> {
    */
   private List<Noticia> theNoticias;
 
+  private static final Logger log = LoggerFactory.getLogger(NoticiaAdapter.class);
+
   /**
    * The Constructor.
    */
   public NoticiaAdapter() {
+    // Empty list
     this.theNoticias = new ArrayList<>();
+
+    // Each Noticia has unique id
+    this.setHasStableIds(true);
   }
 
   /**
@@ -44,11 +60,74 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaViewHolder> {
   /**
    * Called when RecyclerView needs a newViewHolder of the given type to represent an item.
    */
+  @NotNull
   @Override
   public NoticiaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+    // The inflater
     final LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-    return new NoticiaViewHolder(RowNoticiaBinding.inflate(layoutInflater, parent, false));
+
+    // The row of noticia
+    final RowNoticiaBinding rowNoticiaBinding = RowNoticiaBinding.inflate(
+        layoutInflater,
+        parent,
+        false
+    );
+
+    // The NoticiaViewHolder
+    final NoticiaViewHolder noticiaViewHolder = new NoticiaViewHolder(rowNoticiaBinding);
+
+    // Click over the image
+    rowNoticiaBinding.sdvFoto.setOnClickListener(view -> {
+
+      // The position
+      final int position = noticiaViewHolder.getAdapterPosition();
+
+      // The id
+      final long id = noticiaViewHolder.getItemId();
+      log.debug("Click! position: {}, id: {}.", position, Long.toHexString(id));
+
+      // Noticia to show
+      final Noticia noticia = this.theNoticias.get(position);
+
+      // Nothing to do
+      if (noticia.getUrlFoto() == null) {
+        return;
+      }
+
+      // Popup the image
+      this.showImagePopup(noticia, layoutInflater, parent.getContext());
+
+    });
+
+    // Click in the row
+    rowNoticiaBinding.getRoot().setOnClickListener(view -> {
+
+      // The position
+      final int position = noticiaViewHolder.getAdapterPosition();
+
+      // The id
+      final long id = noticiaViewHolder.getItemId();
+      log.debug("Click! position: {}, id: {}.", position, Long.toHexString(id));
+
+      // Noticia to show
+      final Noticia noticia = this.theNoticias.get(position);
+
+      log.debug("Link: {}.", noticia.getUrl());
+      if (noticia.getUrl() != null) {
+
+        // Open the browser
+        parent.getContext().startActivity(
+            new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(noticia.getUrl())
+            )
+        );
+      }
+
+    });
+
+    return noticiaViewHolder;
 
   }
 
@@ -68,5 +147,37 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaViewHolder> {
   public int getItemCount() {
     return this.theNoticias.size();
   }
+
+  /**
+   * Return the stable ID for the item at position.
+   */
+  @Override
+  public long getItemId(int position) {
+    return this.theNoticias.get(position).getId();
+  }
+
+  /**
+   * Show a image popup with the url.
+   *
+   * @param noticia  to show.
+   * @param inflater used to inflate the popup.
+   * @param context  used to build the dialog.
+   */
+  private void showImagePopup(final Noticia noticia, final LayoutInflater inflater, final Context context) {
+
+    // The popupimage
+    final PopupImageBinding popupImageBinding = PopupImageBinding.inflate(inflater);
+
+    // The URL of the photo
+    popupImageBinding.pdvFoto.setPhotoUri(Uri.parse(noticia.getUrlFoto()));
+
+    // The Dialog
+    final Dialog dialog = new Dialog(context, R.style.PopupDialog);
+    dialog.setContentView(popupImageBinding.getRoot());
+    dialog.show();
+
+  }
+
+
 
 }

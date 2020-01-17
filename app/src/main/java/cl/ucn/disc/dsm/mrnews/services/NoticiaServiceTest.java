@@ -4,21 +4,13 @@
 
 package cl.ucn.disc.dsm.mrnews.services;
 
-import cl.ucn.disc.dsm.mrnews.Transformer;
 import cl.ucn.disc.dsm.mrnews.model.Noticia;
-import cl.ucn.disc.dsm.mrnews.mrnewsapi.NewsAPIService.NewsAPIException;
 import cl.ucn.disc.dsm.mrnews.services.mockup.MockupNoticiaService;
-import cl.ucn.disc.dsm.mrnews.services.newsapi.NewsApiResult;
-import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import retrofit2.Call;
-import retrofit2.HttpException;
-import retrofit2.Response;
 
 public class NoticiaServiceTest {
   /**
