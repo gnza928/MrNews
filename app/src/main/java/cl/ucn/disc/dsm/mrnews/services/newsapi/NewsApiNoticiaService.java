@@ -2,11 +2,14 @@
  * @author Gonzalo Nieto Berríos
  */
 
-package cl.ucn.disc.dsm.mrnews.services;
+/*
+ * @author Gonzalo Nieto Berríos
+ */
+
+package cl.ucn.disc.dsm.mrnews.services.newsapi;
 
 import cl.ucn.disc.dsm.mrnews.model.Noticia;
-import cl.ucn.disc.dsm.mrnews.services.newsapi.NewsApi;
-import cl.ucn.disc.dsm.mrnews.services.newsapi.NewsApiResult;
+import cl.ucn.disc.dsm.mrnews.services.Transformer;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;

@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import cl.ucn.disc.dsm.mrnews.MainApplication;
 import cl.ucn.disc.dsm.mrnews.R;
 import cl.ucn.disc.dsm.mrnews.databinding.PopupImageBinding;
 import cl.ucn.disc.dsm.mrnews.databinding.RowNoticiaBinding;

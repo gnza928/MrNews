@@ -55,4 +55,9 @@ public final class MockupNoticiaService implements NoticiaService {
     return noticias;
 
   }
+
+  @Override
+  public List<Noticia> getTopHeadLines (int pageSize) {
+    return null;
+  }
 }

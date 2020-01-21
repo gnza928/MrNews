@@ -6,12 +6,12 @@ android {
     buildToolsVersion "29.0.2"
 
     // Version de NDK a utilizar
-    ndkVersion "21.0.6011959-rc2"
+    ndkVersion "21.0.6011959"
 
     defaultConfig {
 
         // The package-name (MUST be the same of AndroidManifest.xml)
-        applicationId "cl.ucn.disc.dsm.base"
+        applicationId "cl.ucn.disc.dsm.mrnews"
 
         // Min sdk version to run
         minSdkVersion 24
@@ -92,6 +92,11 @@ android {
         shaders = true
     }
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE-notice.md'
+        exclude 'META-INF/LICENSE.md'
+    }
+
 }
 
 dependencies {
@@ -136,18 +141,8 @@ dependencies {
     //org.threeten
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
 
-    implementation 'net.openhft:zero-allocation-hashing:0.10.1'
 
 
-    // Retrofit: https://square.github.io/retrofit/
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
-
-    // Gson: https://github.com/google/gson
-    implementation 'com.google.code.gson:gson:2.8.6'
-
-    // Commons Lang3: https://commons.apache.org/proper/commons-lang/
-    implementation 'org.apache.commons:commons-lang3:3.9'
 
     // RecyclerView: https://developer.android.com/jetpack/androidx/releases/recyclerview
     implementation "androidx.recyclerview:recyclerview:1.2.0-alpha01"

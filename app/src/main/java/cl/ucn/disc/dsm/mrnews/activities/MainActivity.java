@@ -7,24 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import cl.ucn.disc.dsm.mrnews.R;
 import cl.ucn.disc.dsm.mrnews.activities.adapters.NoticiaAdapter;
 import cl.ucn.disc.dsm.mrnews.activities.adapters.NoticiaViewModel;
 import cl.ucn.disc.dsm.mrnews.databinding.ActivityMainBinding;
-import cl.ucn.disc.dsm.mrnews.model.Noticia;
-import cl.ucn.disc.dsm.mrnews.services.NewsApiNoticiaService;
 import cl.ucn.disc.dsm.mrnews.services.NoticiaService;
 import es.dmoral.toasty.Toasty;
-import java.util.List;
-import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * The Main Launcher Activity.
- *
- * @author Diego Urrutia-Astorga.
- */
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -96,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // The NoticiaService
-        this.noticiaService = (NoticiaService) new NewsApiNoticiaService();
+        //this.noticiaService = (NoticiaService) new NewsApiNoticiaService();
 
         // The refresh
         {

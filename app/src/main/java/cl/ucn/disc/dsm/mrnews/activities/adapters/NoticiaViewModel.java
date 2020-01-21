@@ -8,14 +8,15 @@ import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import cl.ucn.disc.dsm.mrnews.model.Noticia;
-import cl.ucn.disc.dsm.mrnews.services.NewsApiNoticiaService;
+import cl.ucn.disc.dsm.mrnews.services.newsapi.NewsApiNoticiaService;
 import cl.ucn.disc.dsm.mrnews.services.NoticiaService;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NoticiaViewModel {
+public class NoticiaViewModel extends ViewModel {
 
   private static final Logger log = LoggerFactory.getLogger(NoticiaViewModel.class);
   /**

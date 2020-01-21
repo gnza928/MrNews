@@ -6,6 +6,7 @@ package cl.ucn.disc.dsm.mrnews.services;
 
 import cl.ucn.disc.dsm.mrnews.model.Noticia;
 import cl.ucn.disc.dsm.mrnews.services.newsapi.Article;
+import cl.ucn.disc.dsm.mrnews.services.newsapi.NewsApiNoticiaService;
 import cl.ucn.disc.dsm.mrnews.services.newsapi.Source;
 import java.net.URI;
 import java.net.URISyntaxException;
