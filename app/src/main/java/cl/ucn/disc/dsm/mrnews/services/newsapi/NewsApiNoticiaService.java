@@ -9,6 +9,7 @@
 package cl.ucn.disc.dsm.mrnews.services.newsapi;
 
 import cl.ucn.disc.dsm.mrnews.model.Noticia;
+import cl.ucn.disc.dsm.mrnews.services.NoticiaService;
 import cl.ucn.disc.dsm.mrnews.services.Transformer;
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +27,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NewsApiNoticiaService {
+public class NewsApiNoticiaService implements NoticiaService {
 
 
   private static final Logger log = LoggerFactory.getLogger(NewsApiNoticiaService.class);
@@ -145,5 +146,43 @@ public class NewsApiNoticiaService {
       super(message, cause);
     }
 
+  }
+
+  @Override
+  public List<Noticia> getTopHeadLines(final int pageSize){
+
+    String country = Country.us.toString();
+    String category = Category.technology.toString();
+
+    // Call
+    final Call<NewsApiResult> call = this.newsApi.getTopHeadlines(category, country, pageSize);
+
+    // Process the Call
+    return getNoticiasFromCall(call);
+
+  }
+  /**
+   * Enum Class ...
+   */
+  public enum Category {
+    business,
+    entertainment,
+    general,
+    health,
+    science,
+    sports,
+    technology
+  }
+
+  public enum Country {
+    ar, // Argentina
+    co, // Colombia
+    cu, // Cuba
+    de, // Germany
+    jp, // Japan
+    mx, // Mexico
+    ru,  // Russia
+    us, // United States
+    ve // Venezuela
   }
 }

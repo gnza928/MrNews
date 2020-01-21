@@ -48,14 +48,17 @@ public interface NewsApi {
    */
   @Headers({"X-Api-Key: " + API_KEY, "X-No-Cache: true"})
   @GET("top-headlines")
-  Call<NewsApiResult> getTopHeadlines(@Query("category") final String category, @Query("pageSize") final int pageSize);
+  Call<NewsApiResult> getTopHeadlines(
+      @Query("category") final String category,
+      @Query(("country")) final String country,
+      @Query("pageSize") final int pageSize);
 
   /**
    * https://newsapi.org/docs/endpoints/everything
    *
    * @return the call of {@link NewsApiResult}.
    */
-  @Headers({"X-Api-Key: " + API_KEY})
+  @Headers({"X-Api-Key: " + API_KEY, "X-No-Cache: true"})
   // TODO: Change the list of sources.
   @GET("everything?sources=ars-technica,wired,hacker-news,recode")
   Call<NewsApiResult> getEverything(@Query("pageSize") final int pageSize);

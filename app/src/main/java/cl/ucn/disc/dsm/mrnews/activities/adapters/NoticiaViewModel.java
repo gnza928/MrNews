@@ -32,7 +32,8 @@ public class NoticiaViewModel extends ViewModel {
   /**
    * The provider of {@link Noticia}.
    */
-  private NoticiaService noticiaService = (NoticiaService) new NewsApiNoticiaService();
+  private NoticiaService noticiaService = new NewsApiNoticiaService();
+
 
   /**
    * LiveData of Noticias to use in the view.
